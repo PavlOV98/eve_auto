@@ -1,0 +1,10 @@
+      10.0.0.0/8 is variably subnetted, 11 subnets, 2 masks
+C        10.0.0.0/24 is directly connected, Loopback0
+L        10.0.0.10/32 is directly connected, Loopback0
+C        10.0.20.0/24 is directly connected, Ethernet0/1
+L        10.0.20.1/32 is directly connected, Ethernet0/1
+C        10.0.21.0/24 is directly connected, Ethernet0/2
+L        10.0.21.1/32 is directly connected, Ethernet0/2
+R        10.0.30.0/24 [120/1] via 10.0.20.2, 00:00:00, Ethernet0/1
+C        10.0.110.0/24 is directly connected, Ethernet0/0.10
+L        10.0.110.1/32 is directly connected, Ethernet0/0.10
