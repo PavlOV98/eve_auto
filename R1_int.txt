@@ -1,8 +1,8 @@
 Interface                  IP-Address      OK? Method Status                Protocol
-Ethernet0/0                unassigned      YES unset  up                    up      
-Ethernet0/0.10             10.0.110.1      YES manual up                    up      
-Ethernet0/0.20             10.0.120.1      YES manual up                    up      
-Ethernet0/1                10.0.20.1       YES manual up                    up      
-Ethernet0/2                10.0.21.1       YES manual up                    up      
-Ethernet0/3                unassigned      YES unset  administratively down down    
-Loopback0                  10.0.0.10       YES manual up                    up      
+Ethernet0/0                10.0.10.1       YES NVRAM  up                    up      
+Ethernet0/0.10             10.0.110.1      YES NVRAM  up                    up      
+Ethernet0/0.20             10.0.120.1      YES NVRAM  up                    up      
+Ethernet0/1                10.0.20.1       YES NVRAM  up                    up      
+Ethernet0/2                10.0.21.1       YES NVRAM  up                    up      
+Ethernet0/3                10.0.40.1       YES manual up                    up      
+Loopback0                  10.0.0.10       YES NVRAM  up                    up      

@@ -74,6 +74,24 @@ def vlanconf(tn,vlan):
     tn.write(b"exit\n")
     tn.write(b"exit\n")
 
+def bgpconf(tn,bgp):
+    tn.write(b"conf t\n")
+    putadata(tn)
+
+    tn.write(b"router bgp " + bytes(bgp["id"], 'utf-8')+b"\n")
+    for i in range(bgp["neighbor"].__len__()):
+        tn.write(b"neighbor " + bytes(bgp["neighbor"][i], 'utf-8') + b" remote-as " + bytes(bgp["n_id"][i], 'utf-8') + b"\n")
+        sleep(0.01)
+        putadata(tn)
+
+    for i in range(bgp["network"].__len__()):
+        tn.write(b"network " + bytes(bgp["network"][i], 'utf-8') + b" mask " + bytes(bgp["mask"][i], 'utf-8') + b"\n")
+        sleep(0.01)
+        putadata(tn)
+
+    tn.write(b"exit\n")
+    tn.write(b"exit\n")
+
 def ospfconf(tn,ospf):
     tn.write(b"conf t\n")
     putadata(tn)
@@ -166,6 +184,8 @@ for i in routers:
         ospfconf(tn,i["ospf"])
     if (i.get("dhcp") != None):
         dhcpconf(tn,i["dhcp"])
+    if (i.get("bgp") != None):
+        bgpconf(tn,i["bgp"])
     sleep(0.01)
 
 
