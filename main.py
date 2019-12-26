@@ -68,6 +68,8 @@ def vlanconf(tn,vlan):
         tn.write(b"ip address " + bytes(i["network"], 'utf-8') + b"\n")
         sleep(0.01)
         if i["no_sh"] == "1":
+            tn.write(b"exit\n")
+            tn.write(b"int "+ bytes(i['int'][:i['int'].index(".")], 'utf-8')+"\n")
             tn.write(b"no sh\n")
             sleep(0.01)
         putadata(tn)
@@ -154,24 +156,28 @@ def dhcpconf(tn,dhcp):
     for i in dhcp["exclude"]:
         tn.write(b"ip dhcp excluded-address " + bytes(i, 'utf-8') + b"\n")
 
-    tn.write(b"ip dhcp pool " + bytes(dhcp["name"], 'utf-8') + b"\n")
-    tn.write(b"network " + bytes(dhcp["network"], 'utf-8') + b"\n")
-    tn.write(b"default-router " + bytes(dhcp["default"], 'utf-8') + b"\n")
-    tn.write(b"dns-server " + bytes(dhcp["dns"], 'utf-8') + b"\n")
-    tn.write(b"domain-name " + bytes(dhcp["domain"], 'utf-8') + b"\n")
-    tn.write(b"end\n")
+    for i in dhcp["pool"]:
+        tn.write(b"ip dhcp pool " + bytes(i["name"], 'utf-8') + b"\n")
+        tn.write(b"network " + bytes(i["network"], 'utf-8') + b"\n")
+        tn.write(b"default-router " + bytes(i["default"], 'utf-8') + b"\n")
+        if (i["dns"]!=""):
+            tn.write(b"dns-server " + bytes(i["dns"], 'utf-8') + b"\n")
+        if (i["domain"] != ""):
+            tn.write(b"domain-name " + bytes(i["domain"], 'utf-8') + b"\n")
+        tn.write(b"exit\n")
+    tn.write(b"exit\n")
 
 
 
 HOST = '192.168.56.101'
 port = 32769
-with open('example.json', 'r') as json_file:
+with open('l3.json', 'r') as json_file:
     data = json.load(json_file)
 HOST=data["host"]
 routers=data["routers"]
 for i in routers:
     print("configurating "+i['name'])
-
+    port = i["port"]
     tn = telnetlib.Telnet(HOST,port,5)
     tn.write(b"enable\n")
     if (i.get("int")!=None):
